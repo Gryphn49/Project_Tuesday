@@ -24,3 +24,14 @@ class MyFrame(wx.Frame):
 		my_sizer.ADD(self.txt, 0, wx.ALL, 5)
 		panel.SetSizer(my_sizer)
 		self.Show()
+
+	def OnEnter(self, event):
+		input = self.txt.GetValue()
+		input = input.lower()
+		print "It Worked!"
+
+if __name__ == "__main__":
+	app = wx.App(True)
+	frame = MyFrame()
+	app.MainLoop()
+		
