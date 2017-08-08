@@ -4,7 +4,7 @@ What a journey. Project Tuesday is a personal assistant that's planned be be an 
 
 # Installation
 
-Well, it's not very good yet. But if it was, you would have to install Pip, WolframAlpha, and Wikipidea onto the computer of your wish.
+Well, it's not very good yet. But if it was, you would have to install Pip, WolframAlpha, and Wikipedia onto the computer of your wish.
 
 Have fun.
 
