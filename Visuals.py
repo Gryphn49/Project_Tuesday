@@ -21,7 +21,7 @@ class MyFrame(wx.Frame):
 		self.txt = wx.TextCtrl(panel, style=wx.TE_PROCESS_ENTER,size=(400,30))
 		self.txt.SetFocus() #focus text
 		self.txt.Bind(wx.EVT_TEXT_ENTER, self.OnEnter)
-		my_sizer.ADD(self.txt, 0, wx.ALL, 5)
+		my_sizer.Add(self.txt, 0, wx.ALL, 5)
 		panel.SetSizer(my_sizer)
 		self.Show()
 
