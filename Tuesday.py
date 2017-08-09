@@ -33,41 +33,11 @@ class MyFrame(wx.Frame):
 ------------------------------------------------------------------------------------------------------
 """
 
-    def OnEnter(self, event): #slight problem. It doesn't let you press enter
-        input = self.txt.GetValue()
-        input = input.lower()
-        
-        #answer stage
-		try:
-			#WOLFRAM ALPHA
-			app_id = "G58JY9-WQ963T9EQV" #to get the info
-
-			client = wolframalpha.Client(app_id) #connecting to info
-
-			result = client.query(input) #collecting result
-			answer = next(result.results).text #processing answer
-
-			print answer #answering with answer
-
-		except:
-			#WIKIPEDIA
-			#wikipedia.set_lang("en") #Language!
-
-			print wikipedia.summary(input)
-
-
-if __name__ == "__main__":
-    app = wx.App(True)
-    frame = MyFrame()
-    app.MainLoop()
-
-"""import wikipedia #Adds wikipedia
-import wolframalpha #Adds wolfram alpha
-
-while True:
-	input = raw_input("Hi. What do you want? ") #Asking stage
-
-	#answer stage
+def OnEnter(self, event):
+	input = self.txt.GetValue()
+	input = input.lower()
+    
+    #answer stage
 	try:
 		#WOLFRAM ALPHA
 		app_id = "G58JY9-WQ963T9EQV" #to get the info
@@ -82,5 +52,14 @@ while True:
 	except:
 		#WIKIPEDIA
 		#wikipedia.set_lang("en") #Language!
+		input = input.split(' ')
+		input = " ".join(input[2:])
 
-		print wikipedia.summary(input)"""
+		print wikipedia.summary(input)
+
+
+if __name__ == "__main__":
+    app = wx.App(True)
+    frame = MyFrame()
+    app.MainLoop()
+

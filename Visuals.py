@@ -18,12 +18,12 @@ class MyFrame(wx.Frame):
         panel.SetSizer(my_sizer)
         self.Show()
 
-    def OnEnter(self, event):
-        input = self.txt.GetValue()
-        input = input.lower()
+	def OnEnter(self, event):
+		input = self.txt.GetValue()
+		input = input.lower()
 
 
 if __name__ == "__main__":
-    app = wx.App(True)
-    frame = MyFrame()
-    app.MainLoop()
+	app = wx.App(True)
+	frame = MyFrame()
+	app.MainLoop()
