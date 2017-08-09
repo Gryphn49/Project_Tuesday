@@ -23,7 +23,17 @@ class MyFrame(wx.Frame):
         panel.SetSizer(my_sizer)
         self.Show()
 
-    def OnEnter(self, event):
+"""
+------------------------------------------------------------------------------------------------------
+                                               ISSUE
+                                In the program, it doesn't seem to
+                                let you press enter. It's a BIG
+                                problem. You need to fix it.
+                                Get to it!
+------------------------------------------------------------------------------------------------------
+"""
+
+    def OnEnter(self, event): #slight problem. It doesn't let you press enter
         input = self.txt.GetValue()
         input = input.lower()
         
