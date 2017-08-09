@@ -48,7 +48,7 @@ try:
 
 	print answer #answering with answer
 
-except:
+except: 
 	#WIKIPEDIA
 	#wikipedia.set_lang("en") #Language!
 	input = input.split(' ')
