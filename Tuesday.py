@@ -18,8 +18,6 @@ while True:
 
 	except:
 		#WIKIPEDIA
-		wikipedia.set_lang("en") #Language!
+		#wikipedia.set_lang("en") #Language!
 
-		print wikipedia.summary(input,sentences=2) #Definition –> 
-		#the shortened sentences needs to be working. 
-		#(Maybe I'll have to ask Tuesday for that.)
+		print wikipedia.summary(input)
