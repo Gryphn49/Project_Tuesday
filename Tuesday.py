@@ -16,6 +16,6 @@ while True:
     except: 
         #WIKIPEDIA
         #wikipedia.set_lang("en")  #Language!
-        uinput = input.split(' ')
+        uinput = uinput.split(' ')
         uinput = " ".join(input[2:])
         print wikipedia.summary(uinput)
