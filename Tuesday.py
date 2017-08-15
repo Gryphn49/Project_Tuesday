@@ -32,9 +32,9 @@ class MyFrame(wx.Frame):
 """
 
 def OnEnter(self, event):
-	input = self.txt.GetValue()
-	input = input.lower()
-	print "It worked"
+    input = self.txt.GetValue()
+    input = input.lower()
+    print "It worked"
 
 """#answer stage
 try:
@@ -59,5 +59,5 @@ except:
 
 if __name__ == "__main__":
     app = wx.App(True)
-    frame = MyFrame()
+    Frame = MyFrame()
     app.MainLoop()
