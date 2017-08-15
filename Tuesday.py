@@ -9,7 +9,7 @@ while True:
     #WOLFRAM ALPHA
         app_id = "G58JY9-WQ963T9EQV"  #to get the info
         client = wolframalpha.Client(app_id)  #connecting to info
-        result = client.query(input)  #collecting result
+        result = client.query(uinput)  #collecting result
         answer = next(result.results).text  #processing answer
         print answer  #answering with answer
         
@@ -17,5 +17,5 @@ while True:
         #WIKIPEDIA
         #wikipedia.set_lang("en")  #Language!
         uinput = uinput.split(' ')
-        uinput = " ".join(input[2:])
+        uinput = " ".join(uinput[2:])
         print wikipedia.summary(uinput)
