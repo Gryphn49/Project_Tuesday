@@ -1,18 +1,10 @@
 import wikipedia  #Adds wikipedia
 import wolframalpha  #Adds wolfram alpha
 
-"""
-------------------------------------------------------------------------------------------------------
-                                               ISSUE
-                                In the program, it doesn't seem to
-                                let you press enter. It's a BIG
-                                problem. You need to fix it.
-                                Get to it!
-------------------------------------------------------------------------------------------------------
-"""
-
 
 while True:
+    uinput = raw_input("Question: ")  #Adds user input
+    
     try:
     #WOLFRAM ALPHA
         app_id = "G58JY9-WQ963T9EQV"  #to get the info
@@ -27,5 +19,3 @@ while True:
         uinput = input.split(' ')
         uinput = " ".join(input[2:])
         print wikipedia.summary(uinput)
-
-
