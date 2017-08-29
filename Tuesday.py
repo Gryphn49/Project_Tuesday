@@ -9,7 +9,7 @@ while True:
         uinput = "exit program"
         exit()
         
-    except: 
+    try: 
        #WIKIPEDIA
         #wikipedia.set_lang("en")  #Language!
         uinput = uinput.split(' ')
