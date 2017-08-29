@@ -19,3 +19,5 @@ while True:
         uinput = uinput.split(' ')
         uinput = " ".join(uinput[2:])
         print wikipedia.summary(uinput)
+        
+        
