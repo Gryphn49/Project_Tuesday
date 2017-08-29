@@ -3,6 +3,7 @@ Created on Aug 29, 2017
 
 @author: Lionclaw49
 '''
+#THIS DOESN'T WORK JUST WARNING YOU
 import speech_recognition
 import pyttsx
 
