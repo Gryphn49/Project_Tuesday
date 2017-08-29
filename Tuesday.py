@@ -9,14 +9,14 @@ while True:
         uinput = "exit program"
         exit()
         
-    try: 
-       #WIKIPEDIA
+    except: 
+        #WIKIPEDIA
         #wikipedia.set_lang("en")  #Language!
         uinput = uinput.split(' ')
         uinput = " ".join(uinput[2:])
         print wikipedia.summary(uinput)
 
-    except: 
+    finally: 
     #WOLFRAM ALPHA
         app_id = "G58JY9-WQ963T9EQV"  #to get the info
         client = wolframalpha.Client(app_id)  #connecting to info
