@@ -23,7 +23,7 @@ async def on_message(message):
     #WOLFRAM ALPHA
         app_id = "G58JY9-WQ963T9EQV"  #to get the info
         cclient = wolframalpha.Client(app_id)  #connecting to info
-        uinput = uinput.replace("`", "") #getting rid of `
+        uinput = uinput.replace("~", "") #getting rid of `
         result = cclient.query(uinput)  #collecting result
         answer = next(result.results).text  #processing answer
         await client.send_message(message.channel, answer)  #sending answer
