@@ -1,3 +1,4 @@
+
 #This is if you want to have Tuesday on a Discord server as a bot. It works very nicely.
 
 import discord #adds discord
@@ -17,25 +18,24 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith("`"):
-        uinput = message.content #variable in actual tuesday (below was copied)
-        if uinput.startswith("`What's") or uinput.startswith("`whats") or uinput.startswith("`Whats") or uinput.startswith("`what's"): 
-        #WOLFRAM ALPHA
-            app_id = "G58JY9-WQ963T9EQV"  #to get the info
-            cclient = wolframalpha.Client(app_id)  #connecting to info
-            uinput = uinput.replace("`", "") #getting rid of `
-            result = cclient.query(uinput)  #collecting result
-            answer = next(result.results).text  #processing answer
-            await client.send_message(message.channel, answer)  #sending answer
+    uinput = message.content #variable in actual tuesday (below was copied)
+    if uinput.startswith("~"): 
+    #WOLFRAM ALPHA
+        app_id = "G58JY9-WQ963T9EQV"  #to get the info
+        cclient = wolframalpha.Client(app_id)  #connecting to info
+        uinput = uinput.replace("`", "") #getting rid of `
+        result = cclient.query(uinput)  #collecting result
+        answer = next(result.results).text  #processing answer
+        await client.send_message(message.channel, answer)  #sending answer
 
-        elif uinput.startswith("`"):
-            #WIKIPEDIA
-            wikipedia.set_lang("en")  #Language!
-#           uinput = uinput.split(" ")
-#           uinput = " ".join(uinput[2:])
-            uinput = uinput.replace("`", "")#getting rid of `
-            answer = wikipedia.summary(uinput, chars=1900)#shortening the code below
-            await client.send_message(message.channel, answer)#sending answer
+    elif uinput.startswith("`"):
+        #WIKIPEDIA
+        wikipedia.set_lang("en")  #Language!
+#       uinput = uinput.split(" ")
+#       uinput = " ".join(uinput[2:])
+        uinput = uinput.replace("`", "")#getting rid of `
+        answer = wikipedia.summary(uinput, chars=1900)#shortening the code below
+        await client.send_message(message.channel, answer)#sending answer
     
   client.run("Your Token Here")
   
