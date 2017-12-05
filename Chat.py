@@ -1,5 +1,8 @@
 from chatterbot import ChatBot
-chatbot = ChatBot("Tuesday"
+from chatterbot.trainers import ListTrainer
+
+chatbot = ChatBot(
+	"Tuesday",
 	storage_adapter='chatterbot.storage.SQLStorageAdapter',
     input_adapter='chatterbot.input.TerminalAdapter',
     output_adapter='chatterbot.output.TerminalAdapter',
@@ -11,9 +14,30 @@ chatbot = ChatBot("Tuesday"
 )
 
 
+chatbot.set_trainer(ListTrainer)
+
+chatbot.train([
+    "Hi there!",
+    "Hello",
+])
+
+chatbot.train([
+    "Greetings!",
+    "Hello",
+])
+
+#chatbot.train([
+#    'How are you?',
+#    'I am good.',
+#    'That is good to hear.',
+#    'Thank you',
+#    'You are welcome.',
+#])
+
 while True:
     try:
-     bot_input = bot.get_response(None)
+     bot_input = chatbot.get_response(None)
 
     except(KeyboardInterrupt, EOFError, SystemExit):
         break
+
