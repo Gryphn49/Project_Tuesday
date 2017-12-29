@@ -200,6 +200,9 @@ async def on_message(message):
         print(message.author)
         print(message.author.id)
 
+    elif uinput.lower().startswith("`~github"):
+        await client.send_message(message.channel, "Here's the github for my code: https://github.com/Lionclaw49/Project_Tuesday")
+
     elif uinput.startswith("`~testing") and tstzne == True and tstzne_authr == message.author:
         await client.send_message(message.channel, "It has worked.")
 
