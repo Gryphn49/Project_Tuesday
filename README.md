@@ -14,4 +14,6 @@ You run it. It's self explanitory.
 
 # Credits
 
-Soon to come.
+Griffin Dugan - Creator
+
+Ethan 
