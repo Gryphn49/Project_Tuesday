@@ -1,48 +1,121 @@
-from urllib.request import urlopen
+import json
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 
-class htmlp:
+def TESTN():
+    filer = ["Bob","Jobob"]
+    filer = str(filer)
+    filer = filer.replace("['","")
+    filer = filer.replace("']","")
+    filer = filer.replace("',","")
+    filer = filer.replace("'","")
+    xname = "tstin"
+    file = open(xname + ".txt","w") 
+    file.write(filer)
+    file.close()
 
-    def __init__(self, hstr):
+    file = open(xname + ".txt","r")
+    filer = file.read()
+    print(filer)
+    filer = filer.split()
+    print(filer)
+    filer.append("Bobabab")
+    print(filer[0])
+    print(filer[1])
+    print(filer[2])
 
-        try:
-            self.hstr = hstr.decode("utf-8")
-        except UnicodeDecodeError as e:
-            self.hstr = str(hstr)
-            print(e)
 
-    def __str__(self):
-        return str(self.hstr)
 
-    # Method that returns a list of all strings between a begin string and end string
-    # doesntbeginwith is an optional parameter that excludes certain  lists that begin with a certian substring
-    # eg. all strings between "foo" and "bar" that dont begin with the substring "n"
+    #try:
+    #    file = open(xname + ".txt", "r")
+    #    for line in file.readlines():
+    #        print(file.read())
+    #    file.close()
+    #    print("Load Comlpete")
+    #except FileNotFoundError:
+    #    print("Error, Load File Not Found")
 
-    def between(self, substring1, substring2, doesntbeginwith=''):
+            
+#TESTN()
+def testen():
+    while 1:
+            x = input("g")
+            lstt = []
+            
+            for i in range(int(x)+1):
+                lstt.append(i)
+            print(lstt[0])
+            lstt.remove(0)
+            print(lstt[0])
+            break
+                
 
-        retval = []
+    print(lstt)
 
-        s = self.hstr.split(substring1)
 
-        for i in s:
-            try:
-                if i[0] != doesntbeginwith:
-                    retval.append(i[0:i.index(substring2)])
 
-            except:
-                pass
+pythonDictionary = {'name':'Bob', 'age':44, 'isEmployed':True}
+def save():
+    pythonDictionary = {}
+    ToJson = json.dumps("10278")
 
-        if len(retval) == 1:
-            return retval[0]
-        return retval
+    print(ToJson)
 
-def dadjokes():
-    url1 = 'http://www.tweeplers.com/hashtags/?cc=WORLD'
-    begstr1 = '<div class="col-xs-8 wordwrap" id="item_u_1" name="'
-    endstr1 = '" style="font-size:1.5em"><a href='
-    doesntbegw1 = "<"
+    xname = "OWleagueMatch"
+    file = open(xname + ".txt","w") 
+    file.write(ToJson)
+    file.close()
 
-    html1 = htmlp(urlopen(url1).read())
-    lst1 = html1.between(begstr1, endstr1, doesntbeginwith=doesntbegw1)
-    print(lst1)
+def openr():
+    try:
+        xname = "OWleagueMatch"
+        file = open(xname + ".txt", "r")
+        jsonData = file.read()
+        file.close()
+        print("Load Comlpete")
+    except FileNotFoundError:
+        print("Error, Load File Not Found")
+    print(jsonData)
+    ToPython = json.loads(jsonData)
+    print(ToPython)
+    print(ToPython)
 
-dadjokes()
+
+    ToJson = json.dumps(ToPython)
+
+    print(ToJson)
+
+    xname = "OWleagueMatch"
+    file = open(xname + ".txt","w") 
+    file.write(ToJson)
+    file.close()
+
+
+
+def leagueS():
+    browser = webdriver.Chrome() # setting the browswer type
+    try:
+        xname = "OWleagueMatch"
+        file = open(xname + ".txt", "r")
+        jsonData = file.read()
+        file.close()
+        print("Load Comlpete")
+    except FileNotFoundError:
+        print("Error, Load File Not Found")
+    print(jsonData)
+    ToPython = json.loads(jsonData)
+    print(ToPython)
+    print("reached")
+    browser.get("https://overwatchleague.com/en-us/match/" + ToPython)
+
+    print("REACHED\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    element2 = browser.find_element_by_id("MatchOverview-awayScore")
+    print("REACHED\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print(element2.text)
+
+save()
+leagueS()
+
+
+

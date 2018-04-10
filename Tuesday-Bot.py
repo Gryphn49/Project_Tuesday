@@ -1632,7 +1632,7 @@ There are also a lot of hidden commands, have fun trying to find them!""")
         #
         #
         try:
-            client.run("Your Token")
+            client.run("NDE1MTkwNTMxNDU5Nzc2NTEz.DWyT1w.XH7BHk5ScJ7C4wtO_axq2ch_oIY")
         finally:
             client.close()
     except TimeoutError:
