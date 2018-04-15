@@ -19,11 +19,12 @@ from PyDictionary import PyDictionary
 from selenium import webdriver
 import smtplib
 import sys
+import datetime
 
+personal = [] # Hello, you don't need to hae
 
 while True:
     try:
-
 
         dictionary = PyDictionary()
         client = discord.Client() #for easier things later on
@@ -43,6 +44,7 @@ while True:
             "4434540635@vtext.com‬",
             "4105078973@vtext.com"
         ]
+        canCollects = {"177831674367836160": "0"}
         authorcollection = {"Lionclaw49" : "No-thang"}
         def saver():
             ToJson = json.dumps(authorcollection)
@@ -486,7 +488,7 @@ while True:
             global tstzne
             global tstzne_authr
             global secretmode
-            await client.change_presence(game=discord.Game(name='Actively Online'))
+            await client.change_presence(game=discord.Game(name='Say `help'))
             tstzne = False
             tstzne_authr = []
             secretmode = False
@@ -520,8 +522,6 @@ while True:
             authorID = author.id
 
 
-
-
             try:
                 if authorID in banned or allbanned == True:
                     return
@@ -537,6 +537,11 @@ while True:
 
                 elif authorID == botID:
                     return
+
+                if message.author.bot:
+                    return
+
+
 
                 #elif authorID == "356474528655867905":
                 #   return
@@ -554,20 +559,20 @@ while True:
             #      await send(channel, "This command has been put on hold for the time being. Please check back later.")
 
             # Now here is where one can add the new commands.
-
-                elif "overwatch" in uinput.lower() and "not" in uinput.lower() and "sport" in uinput.lower():
+         # fine HEY GRIFFIN ARE YOU HERE
+                elif "overwatch" in uinput.lower() and "not" in uinput.lower() and "sport" in uinput.lower() and message.server.id in personal:# GRIFFIN ARE YOU HERE
                     await send(channel, "Yes, it is!")
 
-                elif "esport" in uinput.lower() and "not" in uinput.lower() and "sport" in uinput.lower():
+                elif "esport" in uinput.lower() and "not" in uinput.lower() and "sport" in uinput.lower() and message.server.id in personal:
                     await send(channel, "Yes, they are!")
 
-                elif "overwatch" in uinput.lower() and "bad" in uinput.lower():
+                elif "overwatch" in uinput.lower() and "bad" in uinput.lower() and message.server.id in personal:
                     await send(channel, "No! It's very good!")
 
-                elif "esport" in uinput.lower() and "bad" in uinput.lower():
+                elif "esport" in uinput.lower() and "bad" in uinput.lower() and message.server.id in personal:
                     await send(channel, "No! They're very good!")
 
-                elif uinput.lower() == "`announce":
+                elif uinput.lower() == "`announce" and message.server.id in personal:
                     server = smtplib.SMTP('smtp.gmail.com' , 587)
 
                     server.ehlo()
@@ -596,7 +601,40 @@ while True:
                     global jsonData
                     global collectioned
                     global collected
+                    global resetOW
+                    global resetRL
+                    global canCollects
                     needReset = False
+                    jsonData = ""
+                    resetOW = []
+                    resetRL = []
+                    try:
+                        xname = "2SDAYcanCollect"
+                        file = open(xname + ".txt", "r")
+                        jsonData = file.read()
+                        file.close()
+                    except FileNotFoundError:
+                        print("Error, Load File Not Found")
+
+                    """canCollects = json.loads(jsonData)
+                    print(str(canCollects))
+                    try:
+                        originalT = canCollects[authorID]
+                        print("no error")
+                    except KeyError:
+                        originalT = 0
+                        print("error")
+
+                    print(originalT)
+                    actTime = datetime.datetime.now()
+                    print(actTime)
+                    diff = datetime.timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[, hours[, weeks]]]]]]])
+                    print(diff)
+                    if diff > 0:
+                        timeleft = diff / 60
+                        await send(channel, "You can't collect any more cards yet. You have " + str(timeleft) + " left.")
+                        return"""
+
                     try:
                         xname = "tusedayCollection"
                         file = open(xname + ".txt", "r")
@@ -611,19 +649,25 @@ while True:
 
 
 
+                    if game == "ow":
+                        collected = random.choice(OWcollection)
+                    else:
+                        collected = random.choice(RLcollection)
 
-                    while collectioned == False:
-                        if game == "ow":
-                            collected = random.choice(OWcollection)
-                        else:
-                            collected = random.choice(RLcollection)
-
-                        if authorID not in authorcollection:
-                            collectioned = True
-                            break
-                        if collected not in authorcollection[authorID]:
-                            collectioned = True
-
+                    for item in OWcollection:
+                        try:
+                            if item + " x5" in authorcollection[authorID]:
+                                resetOW.append("*")
+                        except KeyError:
+                            pass
+                    for item in RLcollection:
+                        try:
+                            if item + " x5" in authorcollection[authorID]:
+                                resetRL.append("*")
+                        except KeyError:
+                            pass
+                    if len(resetOW) == len(OWcollection) and len(resetRL) == len(RLcollection):
+                        needReset == True
 
                         #collectioned = True
                     #  + " x5"
@@ -639,39 +683,49 @@ while True:
                             await send(channel, "You got a **" + collected + "**! \n" + str(collectedpic))
                         else:
                             await send(channel, "You got a **" + collected + "** card! \n" + str(collectedpic))
+                    else:
+                        await send(channel, "You need to fuse your cards (`fuse), or reset your inventory (`resetinv).")
+
+                    try:
+                        authorcollection[authorID].append(collected)
+                        """if collected in authorcollection[authorID]:
+                            authorcollection[authorID].remove(collected)
+                            authorcollection[authorID].append(collected + " x2")
+                        elif collected + " x2" in authorcollection[authorID]:
+                            authorcollection[authorID].remove(collected + " x2")
+                            authorcollection[authorID].append(collected + " x3")
+                        elif collected + " x3" in authorcollection[authorID]:
+                            authorcollection[authorID].remove(collected + " x3")
+                            authorcollection[authorID].append(collected + " x4")
+                        elif collected + " x4" in authorcollection[authorID]:
+                            authorcollection[authorID].remove(collected + " x4")
+                            authorcollection[authorID].append(collected + " x5")
+                        elif collected + " x5" in authorcollection[authorID]:
+                            await send(channel, "Error. Something went dreadfully wrong.")
+                        else:
+                            authorcollection[authorID].append(collected)"""
+
+                    except KeyError:
+                        authorcollection[authorID] = [collected]
 
 
-                        try:
-                            if collected in authorcollection[authorID]:
-                                authorcollection[authorID].remove(collected)
-                                authorcollection[authorID].append(collected + " x2")
-                            elif collected + " x2" in authorcollection[authorID]:
-                                authorcollection[authorID].remove(collected + " x2")
-                                authorcollection[authorID].append(collected + " x3")
-                            elif collected + " x3" in authorcollection[authorID]:
-                                authorcollection[authorID].remove(collected + " x3")
-                                authorcollection[authorID].append(collected + " x4")
-                            elif collected + " x4" in authorcollection[authorID]:
-                                authorcollection[authorID].remove(collected + " x4")
-                                authorcollection[authorID].append(collected + " x5")
-                            elif collected + " x5" in authorcollection[authorID]:
-                                await send(channel, "Error. Something went dreadfully wrong.")
-                            else:
-                                authorcollection[authorID].append(collected)
+                    ToJson = json.dumps(authorcollection)
 
-                        except KeyError:
-                            authorcollection[authorID] = [collected]
-
-
-                        ToJson = json.dumps(authorcollection)
-
-                        xname = "tusedayCollection"
-                        file = open(xname + ".txt","w")
-                        file.write(ToJson)
-                        file.close()
+                    xname = "tusedayCollection"
+                    file = open(xname + ".txt","w")
+                    file.write(ToJson)
+                    file.close()
 
 
                     collectioned = False
+                    """canCollects[authorID] = datetime.datetime.now()
+
+                    ToJson = json.dumps(canCollects)
+
+                    xname = "2SDAYcanCollect"
+                    file = open(xname + ".txt","w")
+                    file.write(ToJson)
+                    file.close()"""
 
 
             #
@@ -767,20 +821,49 @@ while True:
                         else:
                             await send(channel, "That is not a proper pack.")
 
+                        fusey = []
                         if fuserl == True:
-                            for item in authorcollection[authorID]:
-                                if item in RLcollection:
-                                    fusey.append("*")
+                            try:
+                                for item in authorcollection[authorID]:
+                                    if item in RLcollection:
+                                        fusey.append("*")
+                            except KeyError:
+                                await send("You can't fuse that pack yet.")
                             if len(fusey) == len(RLcollection):
                                 fuseAble = True
 
 
                             if fuseAble == True:
-                                pass
+                                print("Good.")
+                                await send(channel, "You gained a __**Rocket League Pack**__!")
+                                authorcollection[authorID].append("**Rocket League Pack**")
+                                for item in authorcollection[authorID]:
+                                    if item in RLcollection:
+                                        authorcollection[authorID].remove(item)
+                                        print(item)
+                                        print(str(authorcollection[authorID]))
 
 
                             else:
-                                print("No.")
+                                await send(channel, "You can't fuse that pack yet.")
+
+                        elif fuseow == True:
+                            try:
+                                for item in authorcollection[authorID]:
+                                    if item in OWcollection:
+                                        fusey.append("*")
+                            except KeyError:
+                                await send("You can't fuse that pack yet.")
+                            if len(fusey) == len(OWcollection):
+                                fuseAble = True
+
+
+                            if fuseAble == True:
+                                print("able")
+
+
+                            else:
+                                await send(channel, "You can't fuse that pack yet.")
 
 
 
@@ -792,8 +875,37 @@ while True:
                         file.write(ToJson)
                         file.close()
 
-                elif uinput.lower() == "`department":
-                    await send(channel, "**Join the Department!**\nhttps://discord.gg/R2K5vKm")
+
+                elif uinput.lower() == "``fillinv":
+                    try:
+                        xname = "tusedayCollection"
+                        file = open(xname + ".txt", "r")
+                        jsonData = file.read()
+                        file.close()
+                    except FileNotFoundError:
+                        print("Error, Load File Not Found")
+
+                    authorcollection = json.loads(jsonData)
+
+                    await send(channel,"Filling...")
+                    for item in OWcollection:
+                        authorcollection[authorID].append(item)
+                    for item in RLcollection:
+                        authorcollection[authorID].append(item)
+
+
+                    ToJson = json.dumps(authorcollection)
+
+                    xname = "tusedayCollection"
+                    file = open(xname + ".txt","w")
+                    file.write(ToJson)
+                    file.close()
+
+                elif uinput.lower() == "`department" or uinput.lower() == "`discord":
+                    await send(channel, "**Join the Department!**\nhttps://discord.gg/R2K5vKm.")
+
+                elif uinput.lower() == "`github":
+                    await send(channel, "Here's my source code: \nhttps://github.com/Lionclaw49/Project_Tuesday.")
 
 
 
@@ -809,24 +921,23 @@ while True:
 
 
 
-
-                elif uinput.lower() == "`sam":
+                elif uinput.lower() == "`sam" and message.server.id in personal:
                     await send(channel, "The best human in the entire world. Basically a god.")
 
-                elif uinput.lower() == "`griffin":
+                elif uinput.lower() == "`griffin" and message.server.id in personal:
                     await send(channel, "Don't talk to me about him. He's too annoying.")
 
 
 
                 elif uinput.lower().startswith("`define"):
                     uinput = uinput.replace("`define ", "")
-                    if uinput.lower() == "sam":
+                    if uinput.lower() == "sam" and message.server.id in personal:
                         await send(channel, "{'Noun': ['the supernatural being conceived as the perfect and omnipotent and omniscient originator and ruler of the universe; the object of worship in monotheistic religions', 'any supernatural being worshipped as controlling some part of the world or some aspect of life or who is the personification of a force', 'a man of such superior qualities that he seems like a deity to other people', 'a material effigy that is worshipped']}")
                     elif uinput.lower() == "tuesday":
                         await send(channel, "{'Bot': ['a simply amazing bot that can do a whole lot of things', 'probably the best bot in the history of the world', --- \nHey, wait a minute, this is talking about *me*!")
-                    elif uinput.lower() == "greatness":
+                    elif uinput.lower() == "greatness" and message.server.id in personal:
                         await send(channel, "{'Noun': ['something that the great god sam achieved', 'the property possessed by something or someone of outstanding importance or eminence', 'unusual largeness in size or extent or number']}")
-                    elif uinput.lower() == "griffin":
+                    elif uinput.lower() == "griffin" and message.server.id in personal:
                         await send(channel, "Don't talk to me about him. He's too annoying.")
                     else:
                         definition = dictionary.meaning(uinput)
@@ -885,7 +996,7 @@ while True:
 
 
 
-                elif uinput.lower() == "`meme":
+                elif uinput.lower() == "`meme" and message.server.id in personal:
                     memecheck = []
                     while len(memecheck) < 3:
                         print(memecheck)
@@ -915,7 +1026,7 @@ while True:
 
                     song = song.content
 
-                    if song.lower() == "mouton noir":
+                    if song.lower() == "mouton noir" and message.server.id in personal:
                         await send(channel, """Baa baa mouton noir
 As-tu de la laine?
 Oui monsieur, oui monsieur,
@@ -1466,7 +1577,7 @@ Qui jouent au ratatam.""")
                     tstzne_authr = None
 
                 elif uinput.lower().startswith("`sinsult"):
-                    if uinput.lower() == "`sinsult tuesday" or uinput.lower().startswith("`sinsult " + "<@!386700961051049985>"):
+                    if uinput.lower() == "`sinsult tuesday" or uinput.lower().startswith("`sinsult " + "<@!415190531459776513>"):
                         config = yaml.load(open(os.path.dirname(__file__) + '/insults.yml'))
                         pref = 'Thee'
                         # algorithm simply makes a random choice from three different columns and concatenates them.
@@ -1502,10 +1613,10 @@ Qui jouent au ratatam.""")
                         else:
                             await client.send_message(message.channel, "Something went really wrong...")
 
-                elif uinput == "`Tuesday" or uinput == "~Tuesday":
+                elif uinput == "`Tuesday" or uinput == "``Tuesday":
                     await client.send_message(message.channel, "That's me!") #This is just a fun reference to an AI... If only...
 
-                elif uinput.lower() == "worship kevvy" or uinput.lower() == "worship tevin":
+                elif uinput.lower() == "worship kevvy" or uinput.lower() == "worship tevin" and message.server.id in personal:
                     await client.send_message(message.channel, "HAIL!") #WORSHIP TEVIN AND KEVVY
 
                 elif uinput.lower() == "`clean":
@@ -1562,7 +1673,7 @@ Qui jouent au ratatam.""")
                 elif uinput.lower() == "`help":
                     await client.send_message(message.channel, "I've sent you a private message with all the commands!")
                     await client.send_message(message.author, """
-Hi! I'm Tuesday, a personal assistant created by @Lionclaw49#4912, I'm being updated all the time, so I'll try and keep this up to date. Here's my list of commands, you can use all of them with the backtick (`, It's the top left of most keyboards) before them:
+Hi! I'm Tuesday, a personal assistant created by <@!177831674367836160>, I'm being updated all the time, so I'll try and keep this up to date. Here's my list of commands, you can use all of them with the backtick (`, It's the top left of most keyboards) before them:
  - say -> This allows you to tell me what to say. You can also add tts by adding tts after the 'say'.
  - clean -> This clears my last 10 messages.
  - sinsult -> This sends a shakespearean insult.
@@ -1578,6 +1689,11 @@ Hi! I'm Tuesday, a personal assistant created by @Lionclaw49#4912, I'm being upd
  - define -> This allows you to define something.
  - synonym -> This gives you a synonym of a word.
  - antonym -> This givs you an antonym of a word.
+ - github -> This allows you to view the source code.
+ - discord -> This allows you to join my help server!
+ - collect -> This allows you to collect any car from Rocket League and any a card for any character in Overwatch.
+ - inventory -> This allws you to see your inventory for the collect command.
+ - fuse -> This allows you to fuse your cards into a certain type of pack.
  - trending -> This allows you to get the top trending hashtags off of twitter. (any number after it up to 20 or nothing is 10.)
  - translate (dest) -> This allows you to translate any language into the destination language(dest), you need to specify the ISO 639-1 code form of the language first though.
 Also, anything with  double backticks will pull a wikipedia article, while anything with a tilda (~) will pull wolframalpha (Math).
@@ -1612,7 +1728,7 @@ There are also a lot of hidden commands, have fun trying to find them!""")
                 #      uinput = uinput.split(" ")
                 #      uinput = " ".join(uinput[2:])
                         uinput = uinput.replace("``", "")#getting rid of ``
-                        if uinput.lower() == "tidepod" or uinput.lower() == "tide pod":
+                        if uinput.lower() == "tidepod" or uinput.lower() == "tide pod" and message.server.id in personal:
                             await send(channel, "Mmmmmmmm... Tasty.... Right here's your info.")
                         try:
                             answer = wikipedia.summary(uinput, chars=1900)#shortening the code below

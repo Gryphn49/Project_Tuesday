@@ -2,6 +2,7 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+import datetime
 
 def TESTN():
     filer = ["Bob","Jobob"]
@@ -11,7 +12,7 @@ def TESTN():
     filer = filer.replace("',","")
     filer = filer.replace("'","")
     xname = "tstin"
-    file = open(xname + ".txt","w") 
+    file = open(xname + ".txt","w")
     file.write(filer)
     file.close()
 
@@ -36,20 +37,20 @@ def TESTN():
     #except FileNotFoundError:
     #    print("Error, Load File Not Found")
 
-            
+
 #TESTN()
 def testen():
     while 1:
             x = input("g")
             lstt = []
-            
+
             for i in range(int(x)+1):
                 lstt.append(i)
             print(lstt[0])
             lstt.remove(0)
             print(lstt[0])
             break
-                
+
 
     print(lstt)
 
@@ -58,12 +59,12 @@ def testen():
 pythonDictionary = {'name':'Bob', 'age':44, 'isEmployed':True}
 def save():
     pythonDictionary = {}
-    ToJson = json.dumps("10278")
+    ToJson = json.dumps(pythonDictionary)
 
     print(ToJson)
 
-    xname = "OWleagueMatch"
-    file = open(xname + ".txt","w") 
+    xname = "2SDAYcanCollect"
+    file = open(xname + ".txt","w")
     file.write(ToJson)
     file.close()
 
@@ -87,7 +88,7 @@ def openr():
     print(ToJson)
 
     xname = "OWleagueMatch"
-    file = open(xname + ".txt","w") 
+    file = open(xname + ".txt","w")
     file.write(ToJson)
     file.close()
 
@@ -114,8 +115,11 @@ def leagueS():
     print("REACHED\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     print(element2.text)
 
+
+    print(datetime.date.today())
+    datetime1 = datetime.datetime.now()
+    print(datetime1)
+    time.sleep(5)
+    diff = datetime1 - datetime.datetime.combine(datetime.date.today(), datetime.time())
+    print(diff.seconds)
 save()
-leagueS()
-
-
-
