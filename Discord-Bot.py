@@ -1673,7 +1673,8 @@ Qui jouent au ratatam.""")
                 elif uinput.lower() == "`help":
                     await client.send_message(message.channel, "I've sent you a private message with all the commands!")
                     await client.send_message(message.author, """
-Hi! I'm Tuesday, a personal assistant created by <@!177831674367836160>, I'm being updated all the time, so I'll try and keep this up to date. Here's my list of commands, you can use all of them with the backtick (`, It's the top left of most keyboards) before them:
+Hi! I'm Tuesday, a personal assistant created by <@!177831674367836160>, I'm being updated all the time, so I'll try and keep this up to date. Here's my list of commands, you can use all of them with the backtick (`, It's the top left of most keyboards) before them:""")
+                    await client.send_message(message.author, """
  - say -> This allows you to tell me what to say. You can also add tts by adding tts after the 'say'.
  - clean -> This clears my last 10 messages.
  - sinsult -> This sends a shakespearean insult.
@@ -1695,7 +1696,8 @@ Hi! I'm Tuesday, a personal assistant created by <@!177831674367836160>, I'm bei
  - inventory -> This allws you to see your inventory for the collect command.
  - fuse -> This allows you to fuse your cards into a certain type of pack.
  - trending -> This allows you to get the top trending hashtags off of twitter. (any number after it up to 20 or nothing is 10.)
- - translate (dest) -> This allows you to translate any language into the destination language(dest), you need to specify the ISO 639-1 code form of the language first though.
+ - translate (dest) -> This allows you to translate any language into the destination language(dest), you need to specify the ISO 639-1 code form of the language first though.""")
+                    await client.send_message(message.author, """
 Also, anything with  double backticks will pull a wikipedia article, while anything with a tilda (~) will pull wolframalpha (Math).
 There are also a lot of hidden commands, have fun trying to find them!""")
 
@@ -1748,7 +1750,7 @@ There are also a lot of hidden commands, have fun trying to find them!""")
         #
         #
         try:
-            client.run("Your Token")
+            client.run("Tuesday's Token") #NDM0ODkxNTM5NzM5NzA1MzYx.DbQ_3Q.A7KzfZY1RZ0HLw6J2a4DOanlaP0
         finally:
             client.close()
     except TimeoutError:
