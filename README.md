@@ -2,18 +2,14 @@
 
 What a journey. Project Tuesday is a personal assistant that's planned be be an AI like J.A.R.V.I.S.
 
-# Installation
+# Discord Bot
 
-Well, it's not very good yet. But if it was, you would have to install Python 3, Pip, WolframAlpha, and Wikipedia, Py Audio, Homebrew, Port Audio, and Python Speech Recognition onto the computer of your wish.
-
-Have fun.
-
-# How to Use
-
-You run it. It's self explanitory.
+The Discord Bot is Tuesday#9517. You are not allowed to run the code for it without the creator's permissions.
 
 # Credits
 
 Griffin Dugan - Creator
 
-Ethan 
+AceAttorneyMaster111 - Collaborator
+
+Ethan - HAWIN (Helpful Assistance When In Need)
