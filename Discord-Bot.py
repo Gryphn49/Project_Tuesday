@@ -902,7 +902,7 @@ while True:
                     file.close()
 
                 elif uinput.lower() == "`department" or uinput.lower() == "`discord":
-                    await send(channel, "**Join the Department!**\nhttps://discord.gg/R2K5vKm.")
+                    await send(channel, "**Join the Department!**\nhttps://discord.gg/TjWzXZN.")
 
                 elif uinput.lower() == "`github":
                     await send(channel, "Here's my source code: \nhttps://github.com/Lionclaw49/Project_Tuesday.")
@@ -1750,7 +1750,7 @@ There are also a lot of hidden commands, have fun trying to find them!""")
         #
         #
         try:
-            client.run("Tuesday's Token") #NDM0ODkxNTM5NzM5NzA1MzYx.DbQ_3Q.A7KzfZY1RZ0HLw6J2a4DOanlaP0
+            client.run("Tuesday's Token")
         finally:
             client.close()
     except TimeoutError:
