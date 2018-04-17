@@ -63,7 +63,7 @@ def save():
 
     print(ToJson)
 
-    xname = "2SDAYcanCollect"
+    xname = "tuesdayShop"
     file = open(xname + ".txt","w")
     file.write(ToJson)
     file.close()

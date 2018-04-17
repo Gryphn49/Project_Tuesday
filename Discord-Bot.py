@@ -22,30 +22,24 @@ import sys
 import datetime
 
 personal = [] # Hello, you don't need to hae
+dictionary = PyDictionary()
+client = discord.Client() #for easier things later on
+weather = Weather()
+
+canCollects = {"177831674367836160": "0"}
+authorcollection = {"Lionclaw49" : "No-thang"}
+swears = ["shit","fuck","cunt","ass","bastard","whore","slut"]
+
 
 while True:
     try:
-
-        dictionary = PyDictionary()
-        client = discord.Client() #for easier things later on
-        weather = Weather()
-
-
         #here begins the start of the functions for the
         global begin_db
         global responce_db
         global bugedition
         global jsonData
 
-        phonenumbers = [
-            "4109805264@vtext.com‬",
-            "4109805656@vtext.com‬",
-            "5712746683@tmomail.net",
-            "4434540635@vtext.com‬",
-            "4105078973@vtext.com"
-        ]
-        canCollects = {"177831674367836160": "0"}
-        authorcollection = {"Lionclaw49" : "No-thang"}
+
         def saver():
             ToJson = json.dumps(authorcollection)
 
@@ -190,10 +184,10 @@ while True:
         BOTNAME = "Tuesday"
 
         async def send(channel, reply):
-            return await client.send_message(channel, reply)
+                await client.send_message(channel, reply)
 
         async def wait(time, channel, author):
-            return await client.wait_for_message(timeout=time, channel=channel, author=author)
+            await client.wait_for_message(timeout=time, channel=channel, author=author)
 
 
 
@@ -461,10 +455,11 @@ while True:
                 exit()
                 break
 
-        start = input("Would you like to start the program? (y/n)")
+
         startloop = True
         while startloop:
             try:
+                start = input("Would you like to start the program? (y/n)")
                 if start.lower() == "y":
                     print("Starting...")
                     startloop = False
@@ -513,6 +508,7 @@ while True:
             global secretmode
             global begin_db
             global responce_db
+            global swears
 
             uinput = message.content #variable in actual tuesday (below was copied)
             channel = message.channel
@@ -526,7 +522,7 @@ while True:
                 if authorID in banned or allbanned == True:
                     return
 
-                elif authorID not in testors and debug == True:
+                if authorID not in testors and debug == True:
                     return
 
                 elif uinput.startswith(".`") or uinput.startswith(".~") or uinput.startswith(".``"):
@@ -538,15 +534,23 @@ while True:
                 elif authorID == botID:
                     return
 
-                if message.author.bot:
+                elif message.author.bot:
                     return
+
+                for item in swears:
+                    print(item)
+                    print(str(swears))
+                    if item in uinput.lower():
+                        await client.delete_message(message)
+                        await send(channel, "<@!" + authorID + "> Please don't swear.")
+                        return
 
 
 
                 #elif authorID == "356474528655867905":
                 #   return
 
-                elif authorID == "155103255993647104":
+                if authorID == "155103255993647104":
                     robotgif = random.choice(["https://www.technologyreview.com/i/images/robot.fallx392.gif", "http://4.bp.blogspot.com/-_rwfpbwpHTs/Vf_5UX_Kw4I/AAAAAAAAUDs/qLHX51tld34/s1600/robot-breaking-through-door.gif", "https://i.imgur.com/9SKc6D9.gif", ])
                     await send(author, robotgif)
 
@@ -901,7 +905,45 @@ while True:
                     file.write(ToJson)
                     file.close()
 
-                elif uinput.lower() == "`department" or uinput.lower() == "`discord":
+                if uinput.lower() == "`shop":
+                    print("gotten")
+                    global shopinfo
+                    try:
+                        print("working")
+                        xname = "tusedayShop"
+                        file = open(xname + ".txt", "r")
+                        jsonData = file.read()
+                        print("recieved")
+                        file.close()
+                    except FileNotFoundError:
+                        print("Error, Load File Not Found")
+
+                    shopinfo = jsonData
+                    if shopinfo == {}:
+                        anyshop = False
+                    else:
+                        anyshop = True
+
+                    if anyshop == True:
+                        print("There's a shop!" + str(shopinfo))
+                    else:
+                        print("There's no shop!")
+
+                    ToJson = json.dumps(shopinfo)
+
+                    xname = "tuesdayShop"
+                    file = open(xname + ".txt","w")
+                    file.write(ToJson)
+                    file.close()
+
+
+
+
+
+
+
+
+                if uinput.lower() == "`department" or uinput.lower() == "`discord":
                     await send(channel, "**Join the Department!**\nhttps://discord.gg/TjWzXZN.")
 
                 elif uinput.lower() == "`github":
