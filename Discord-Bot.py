@@ -247,25 +247,11 @@ while True:
 
             return ''.join(c for c in s if c not in punctuation).lower()
 
-        async def SpeachRec(message):
-            while 1:
-                uinput = message.content
-                print("User: " + uinput)
-                return uinput # This is just there so you can check to make sure that your speech was caught correctly.
+        async def sinput(inn):
+            return rempunc(inn)
 
-        async def sinput(message):
-            if VOICEINPUT:
-                return SpeachRec(message)
-            else:
-                return rempunc(message)
-
-        async def TextToSpeach(output,message):
-            await send(messsage.channel, output)
-
-        async def sout(reply,message):
-            if VOICEOUTPUT:
-                await TextToSpeach(reply, message)
-            await send(message.channel, BOTNAME + ": " + reply)
+        async def sout(out,message):
+            await send(message.channel, out)
 
         def debugging(dbstr):
             if DEBUGGING:
@@ -274,146 +260,89 @@ while True:
 
         async def main(message):
 
-            # Variable used to exit the loop
+        # Variable used to exit the loop
             exitval = False
 
-            while exitval != True:
+            if message.content.lower() != "`chat":
 
-                if random.choice([True, False]):
+                res = random.choice(begin_db)
+                wm = True
 
-                    res = random.choice(begin_db)
-                    wm = True
+            else:
+                if message.author.id == client.user.id:
+                    return
 
-                else:
-                    if message.author.id == client.user.id:
-                        return
+                if message.author.bot:
+                    return
 
-
-                    elif message.author.id == 380833273112297474 or message.author.id == 365544801954955277 or message.author.id == 208946659361554432 or message.author.id == 235088799074484224 or message.author.id == 330488924449275916:
-                        return
-
-
-                    channelit = await client.wait_for_message(timeout=30, channel=message.channel)
+                while exitval != True:
+                    print("1")
+                    channelit = await client.wait_for_message(timeout=30, channel=message.channel, author=message.author)
                     if channelit is None:
-                        await client.send_message(message.channel, "Operation timed out.")
+                        await client.send_message(message.channel, "Chatbot timed out.")
                         return
                     elif channelit.content == "exit":
                         await client.send_message(message.channel, "Chatbot session exited.")
                         wm = False
                         exitval = True
-                    elif channelit.content == "settings":
-                        settings(message)
                     else:
                         messagge = channelit.content
 
-
-                    inp = await sinput(message)
+                    print("2")
+                    print(messagge)
+                    inp = await sinput(messagge)
 
 
                     try:
-                        res = random.choice(responce_db[inp])
+                        resp = random.choice(responce_db[inp])
                         debugging("Found responce")
                         wm = True
+                        print("3")
 
                     except:
                         await send(message.channel, "No responce data found, a new session will begin to gather more data...")
                         debugging("No responce found")
-                        print("")
                         begin_db.append(inp)
                         wm = False
+                        print("3.1")
 
-                while wm:
-
-                    await sout(res,message)
-
-                    inp = await sinput(message)
-                    if inp == 'exit':
-                        wm = False
-                        exitval = True
-
-                    if wm:
-
-                        try:
-                            responce_db[res].append(inp)
-                            debugging("Added new responce '" + str.inp + "'' under old key '" + str.res + "'")
-
-                        except:
-                            responce_db[res] = [inp]
-                            debugging("Added new responce '" + str.inp + "'' under new key '" + str.res + "'")
-
-                        try:
-                            res = random.choice(responce_db[inp])
-                            debugging("Found responce")
-
-                        except:
-                            await send(message.channel, "No responce data found, a new session will begin to gather more data...")
-                            debugging("No responce found")
-
+                    while wm:
+                        print("4")
+                        await sout(resp,message)
+                        print("5")
+                        channelit = await client.wait_for_message(timeout=30, channel=message.channel, author=message.author)
+                        if channelit is None:
+                            await client.send_message(message.channel, "Chatbot timed out.")
+                            return
+                        elif channelit.content == "exit":
+                            await client.send_message(message.channel, "Chatbot session exited.")
                             wm = False
+                            exitval = True
+                        else:
+                            messagge = channelit.content
+                        print("6")
+                        print(messagge)
+                        inp = await sinput(messagge)
 
-        async def settings(message):
-            while True:
-                await client.send_message(message.channel, "Which command do you wish to use?")
-                channelit = await client.wait_for_message(timeout=30, channel=message.channel, author=message.author)
-                if channelit is None:
-                    await client.send_message(message.channel, "Operation timed out.")
-                    return
-                elif channelit.content == "exit":
-                    await client.send_message(message.channel, "Settings exited.")
-                    break
-                else:
-                    inp = channelit.content
+                        if wm:
 
-                    if inp == "save":
-                        vname = input("Name of file: ")
-                        file = open(vname + ".txt", "w")
-                        file.writelines(["begin_db = " + str(begin_db) + '\n', "responce_db = " + str(responce_db)])
-                        file.close()
-                        print("Save Complete")
-                    elif inp == "load":
-                        xname = input("Name of file: ")
-                        try:
-                            file = open(xname + ".txt", "r")
-                            for line in file.readlines():
-                                exec(line)
-                            file.close()
-                            print("Load Comlpete")
-                        except FileNotFoundError:
-                            print("Error, Load File Not Found")
+                            try:
+                                responce_db[resp].append(inp)
+                                debugging("Added new responce '" + str(inp) + "'' under old key '" + str(resp) + "'")
 
-                    elif inp == 'stitch':
-                        nfiles = []
-                        x = True
-                        while 1:
-                            inp = input("File Name: ")
-                            if inp == '':
-                                break
-                            else:
-                                nfiles.append(inp + '.txt')
+                            except:
+                                responce_db[resp] = [inp]
+                                debugging("Added new responce '" + str(inp) + "'' under new key '" + str(resp) + "'")
 
-                        opened_files = openm(nfiles)
+                            try:
+                                resp = random.choice(responce_db[inp])
+                                debugging("Found responce")
 
-                        fin_b_db = begin_db
-                        fin_r_db = responce_db
+                            except:
+                                await send(message.channel, "No responce data found, a new session will begin to gather more data...")
+                                debugging("No responce found")
 
-                        for file in opened_files:
-                            for line in file.readlines():
-                                exec(line)
-                            fin_b_db += begin_db
-                            fin_r_db.update(responce_db)
-
-                        begin_db = fin_b_db
-                        responce_db = fin_r_db
-
-                        print('Stitching Sucsessfull')
-
-
-                    elif inp == "continue":
-                        if message.author.id != client.user.id:
-                            await main(message)
-                    else:
-                        await client.send_message(message.channel, "Error, Invalid Command")
-                        await client.send_message(message.channel, "Avalible Commands are: 'continue'")
+                                wm = False
 
 
         banned = []
@@ -538,8 +467,6 @@ while True:
                     return
 
                 for item in swears:
-                    print(item)
-                    print(str(swears))
                     if item in uinput.lower():
                         await client.delete_message(message)
                         await send(channel, "<@!" + authorID + "> Please don't swear.")
@@ -555,12 +482,11 @@ while True:
                     await send(author, robotgif)
 
                 elif uinput.lower().startswith("hey tuesday") or uinput.startswith("`chat"):
-                    while 1:
-                        if message.author.id == client.user.id:
-                            return
-                        else:
-                            await main(message)
-            #      await send(channel, "This command has been put on hold for the time being. Please check back later.")
+                    if message.author.id == client.user.id:
+                        return
+                    else:
+                        await main(message)
+        #      await send(channel, "This command has been put on hold for the time being. Please check back later.")
 
             # Now here is where one can add the new commands.
          # fine HEY GRIFFIN ARE YOU HERE
@@ -1330,7 +1256,7 @@ Qui jouent au ratatam.""")
 
                     pollalts = False
                     await send(channel, "What do you want your poll to be on? At any point in this process, 'cancel' will stop the whole thing.")
-                    pollttlwait = await wait(60, channel, author)
+                    pollttlwait = await client.wait_for_message(timeout=60, channel=channel, author=author)
                     if pollttlwait is None:
                         await client.send_message(message.channel, "Operation timed out.")
                         return
@@ -1343,7 +1269,7 @@ Qui jouent au ratatam.""")
                     await send(channel, "Please enter the choices for the poll, then once you are finished type 'done'.")
                     pollalt = []
                     while pollalts == False:
-                        pollaltwait = await wait(240, channel, author)
+                        pollaltwait = await client.wait_for_message(timeout=240, channel=channel, author=author)
                         if pollaltwait is None:
                             await client.send_message(message.channel, "Operation timed out.")
                             return
