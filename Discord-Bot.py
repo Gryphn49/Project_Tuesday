@@ -294,6 +294,12 @@ async def main(message):
 # commands
 
 async def collect(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     global needReset
     global jsonData
     global collectioned
@@ -417,6 +423,12 @@ async def collect(message):
     file.close()"""
 
 async def inventory(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     global jsonData
 
     try:
@@ -439,6 +451,12 @@ async def inventory(message):
         await send(channel, "You don't have an inventory.")
 
 async def resetinv(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     global jsonData
     try:
         xname = "tusedayCollection"
@@ -462,6 +480,12 @@ async def resetinv(message):
     file.close()
 
 async def fuse(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     global fuserl
     global fuseow
     global jsonData
@@ -551,6 +575,12 @@ async def fuse(message):
         file.close()
 
 async def fillinv(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     try:
         xname = "tusedayCollection"
         file = open(xname + ".txt", "r")
@@ -576,6 +606,12 @@ async def fillinv(message):
     file.close()
 
 async def announce(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     server = smtplib.SMTP('smtp.gmail.com' , 587)
 
     server.ehlo()
@@ -599,6 +635,12 @@ async def announce(message):
         print("Sent: " + u)
 
 async def define(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     uinput = uinput.replace("`define ", "")
     if uinput.lower() == "sam" and message.server.id in personal:
         await send(channel, "{'Noun': ['the supernatural being conceived as the perfect and omnipotent and omniscient originator and ruler of the universe; the object of worship in monotheistic religions', 'any supernatural being worshipped as controlling some part of the world or some aspect of life or who is the personification of a force', 'a man of such superior qualities that he seems like a deity to other people', 'a material effigy that is worshipped']}")
@@ -613,6 +655,12 @@ async def define(message):
         await send(channel, definition)
 
 async def shop(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     print("gotten")
     global shopinfo
     try:
@@ -643,6 +691,12 @@ async def shop(message):
     file.close()
 
 async def meme(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     memecheck = []
     while len(memecheck) < 3:
         print(memecheck)
@@ -654,6 +708,12 @@ async def meme(message):
             print("added")
 
 async def lyrics(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     await send(channel, "Please enter a song name.")
     # wait for message
     song = await wait(60, channel, author)
@@ -694,6 +754,12 @@ async def lyrics(message):
         await client.send_message(channel, i)
 
 async def trending(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     if uinput.lower() == "`trending":
         url1 = 'http://www.tweeplers.com/hashtags/?cc=WORLD'
         browser = webdriver.Chrome() # setting the browswer type
@@ -738,6 +804,12 @@ async def trending(message):
             await send(channel, "The maximum top trending hashtags go up to 20.")
 
 async def forecast(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     if uinput.lower() == "`forecast":
         await send(channel, "Please enter a city or a zipcode.")
         # wait for message
@@ -787,6 +859,12 @@ async def forecast(message):
             await send(channel, "Please enter a proper zipcode or city.")
 
 async def weather(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     if uinput.lower() == "`weather":
         await send(channel, "Please enter a city or a zipcode.")
         # wait for message
@@ -838,6 +916,12 @@ async def weather(message):
             await send(channel, "Please enter a proper zipcode or city.")
 
 async def ezpoll(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     epollalts = False
     epollttl = input("What do you want your poll to be on? At any point in this process, 'cancel' will stop the whole thing.\n")
     if epollttl.lower() == "cancel":
@@ -874,6 +958,12 @@ async def ezpoll(message):
         await client.add_reaction(epollcat, epollrktn[i+1])
 
 async def poll(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     pollalts = False
     await send(channel, "What do you want your poll to be on? At any point in this process, 'cancel' will stop the whole thing.")
     pollttlwait = await client.wait_for_message(timeout=60, channel=channel, author=author)
@@ -922,6 +1012,12 @@ async def poll(message):
         await client.add_reaction(pollcat, pollrktn[i+1])
 
 async def bug(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     bugconfirm = False
     bugedition = False
     await client.send_message(message.channel, "What would you call the bug that you wish to report? Type 'cancel' if you wish to escape this operation.")
@@ -1044,6 +1140,12 @@ async def bug(message):
 
 
 async def suggest(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     suggestdesc = ""
     suggestdescloop = True
     await client.send_message(message.channel, "What would you call the suggestion that you are submitting? Type 'cancel' if you wish to escape this operation.")
@@ -1095,6 +1197,12 @@ async def suggest(message):
             await send(channel, "Invalid Command. Please try again:")
 
 async def translate(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     if uinput == "`translate":
         await client.send_message(message.channel, "Please enter what is to be translated and if it is to go to another language, state the two letter version after the bleep.")
     else:
@@ -1110,6 +1218,12 @@ async def translate(message):
             await client.send_message(message.channel, translator.translate(languagee, dest='en'))
 
 async def sms(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     await client.delete_message(message)
     print("I will speak anything you say:")
     while True:
@@ -1122,6 +1236,12 @@ async def sms(message):
                 await client.send_message(message.channel, uiinput)
 
 async def sinsult(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     if uinput.lower() == "`sinsult tuesday" or uinput.lower().startswith("`sinsult " + "<@!415190531459776513>"):
         config = yaml.load(open(os.path.dirname(__file__) + '/insults.yml'))
         pref = 'Thee'
@@ -1159,6 +1279,12 @@ async def sinsult(message):
             await client.send_message(message.channel, "Something went really wrong...")
 
 async def clean(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     delete_messages = []
     async for m in client.logs_from(channel, limit=10):
         if m.author == client.user:
@@ -1176,6 +1302,12 @@ async def clean(message):
     await send(channel, ":white_check_mark:")
 
 async def say(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     try:
         if uinput.lower().startswith("`say tts"):
             uinput = uinput.replace("`say", "")
@@ -1210,6 +1342,12 @@ async def say(message):
         await client.send_message(message.channel, "Did you add something after the command? If so, please feel free to contact the developer.")
 
 async def help(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     await client.send_message(message.channel, "I've sent you a private message with all the commands!")
     await client.send_message(message.author, """
 Hi! I'm Tuesday, a personal assistant created by <@!177831674367836160>, I'm being updated all the time, so I'll try and keep this up to date. Here's my list of commands, you can use all of them with the backtick (`, It's the top left of most keyboards) before them:""")
@@ -1241,6 +1379,12 @@ Also, anything with  double backticks will pull a wikipedia article, while anyth
 There are also a lot of hidden commands, have fun trying to find them!""")
 
 async def mime(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     if message.server.id == "367076093523656704":
         uinput = uinput.replace("`mime ", "")
         await send(discord.utils.find(lambda ch: ch.id == "399269109029797899", message.server.channels), author.mention + " said: \"" + uinput + "\" in " + channel.mention + ".")
@@ -1250,9 +1394,15 @@ async def mime(message):
         uinput = uinput.replace("`mime ", "")
         await client.delete_message(message)
         await client.send_message(message.channel, uinput)
-        print("Tuesday mimed '" + uinput + "' for " + author)
+        print("Tuesday mimed '" + uinput + "' for " + str(author))
 
 async def wa(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     app_id = "G58JY9-WQ963T9EQV"  #to get the info
     cclient = wolframalpha.Client(app_id)  #connecting to info
     uinput = uinput.replace("`wa ", "") #getting rid of ~
@@ -1261,6 +1411,12 @@ async def wa(message):
     await client.send_message(message.channel, answer)  #sending answer
 
 async def wp(message):
+    uinput = message.content
+    channel = message.channel
+    author = message.author
+    bot = client.user
+    botID = bot.id
+    authorID = message.author.id
     wikipedia.set_lang("en")  #Language!
     uinput = uinput.replace("`` ", "")#getting rid of ``
     if uinput.lower() == "tidepod" or uinput.lower() == "tide pod" and message.server.id in personal:
@@ -1374,7 +1530,6 @@ while True:
             bot = client.user
             botID = bot.id
             authorID = author.id
-
 
             try:
                 if authorID in banned or allbanned == True:
