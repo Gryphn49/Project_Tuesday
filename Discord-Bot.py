@@ -598,12 +598,6 @@ async def announce(message):
         server.sendmail("tuesdayybot@gmail.com", str(i), str(u))
         print("Sent: " + u)
 
-async def swearcheck(message):
-    if item in uinput.lower():
-        await client.delete_message(message)
-        await send(channel, "<@!" + authorID + "> Please don't swear.")
-        return
-
 async def define(message):
     uinput = uinput.replace("`define ", "")
     if uinput.lower() == "sam" and message.server.id in personal:
@@ -1402,7 +1396,10 @@ while True:
                     return
 
                 for item in swears:
-                    await swearcheck(message)
+                    if item in uinput.lower():
+                        await client.delete_message(message)
+                        await send(channel, "<@!" + authorID + "> Please don't swear.")
+                        return
 
                 if authorID == "155103255993647104":
                     robotgif = random.choice(["https://www.technologyreview.com/i/images/robot.fallx392.gif", "http://4.bp.blogspot.com/-_rwfpbwpHTs/Vf_5UX_Kw4I/AAAAAAAAUDs/qLHX51tld34/s1600/robot-breaking-through-door.gif", "https://i.imgur.com/9SKc6D9.gif", ])
