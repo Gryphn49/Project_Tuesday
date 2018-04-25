@@ -1549,7 +1549,7 @@ while True:
                 elif message.author.bot:
                     return
 
-                if profanity.contains_profanity(uinput.lower()):
+                if profanity.profanity.contains_profanity(uinput.lower()):
                     await client.delete_message(message)
                     await send(channel, "<@!" + authorID + "> Please don't swear.")
                     return
