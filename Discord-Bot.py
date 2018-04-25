@@ -20,6 +20,7 @@ from selenium import webdriver
 import smtplib
 import sys
 import datetime
+import profanity.profanity
 
 # Variables for commands
 debug = False #debug function
@@ -36,7 +37,6 @@ collectioned = False #collection loop
 testors = [] #debug testers loop
 canCollects = {"177831674367836160": "0"} #collect command
 authorcollection = {"Lionclaw49" : "No-thang"} #collect command
-swears = ["shit","fuck","cunt","ass","bastard","whore","slut"] #swear checker
 
 # Large variables
 HOTDOGMAN = '''⢀⠠⡣⡑⡜⣜⢮⣳⡣⣯⡳⣝⣞⡼⡔⡄⠨⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -1522,7 +1522,6 @@ while True:
             global secretmode
             global begin_db
             global responce_db
-            global swears
 
             uinput = message.content #variable in actual tuesday (below was copied)
             channel = message.channel
@@ -1550,11 +1549,10 @@ while True:
                 elif message.author.bot:
                     return
 
-                for item in swears:
-                    if item in uinput.lower():
-                        await client.delete_message(message)
-                        await send(channel, "<@!" + authorID + "> Please don't swear.")
-                        return
+                if profanity.profanity.contains_profanity(uinput.lower()):
+                    await client.delete_message(message)
+                    await send(channel, "<@!" + authorID + "> Please don't swear.")
+                    return
 
                 if authorID == "155103255993647104":
                     robotgif = random.choice(["https://www.technologyreview.com/i/images/robot.fallx392.gif", "http://4.bp.blogspot.com/-_rwfpbwpHTs/Vf_5UX_Kw4I/AAAAAAAAUDs/qLHX51tld34/s1600/robot-breaking-through-door.gif", "https://i.imgur.com/9SKc6D9.gif", ])
