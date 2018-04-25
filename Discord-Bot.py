@@ -20,7 +20,7 @@ from selenium import webdriver
 import smtplib
 import sys
 import datetime
-import profanity
+import profanity.profanity
 
 # Variables for commands
 debug = False #debug function
@@ -1549,7 +1549,7 @@ while True:
                 elif message.author.bot:
                     return
 
-                if profanity.profanity.contains_profanity(uinput.lower()):
+                if profanity.contains_profanity(uinput.lower()):
                     await client.delete_message(message)
                     await send(channel, "<@!" + authorID + "> Please don't swear.")
                     return
