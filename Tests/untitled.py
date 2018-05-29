@@ -63,14 +63,14 @@ def save():
 
     print(ToJson)
 
-    xname = "tuesdayShop"
+    xname = "2sdaySETTINGS"
     file = open(xname + ".txt","w")
     file.write(ToJson)
     file.close()
 
 def openr():
     try:
-        xname = "OWleagueMatch"
+        xname = "2sdaySETTINGS"
         file = open(xname + ".txt", "r")
         jsonData = file.read()
         file.close()
