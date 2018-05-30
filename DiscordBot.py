@@ -189,7 +189,7 @@ RLcollectionpics = {
     "Takumi RX-T" : "https://vignette.wikia.nocookie.net/rocketleague/images/c/cb/Takumi_RX-T_body_icon.png/revision/latest?cb=20170524181147",
     "X-Devil Mk2" : "https://vignette.wikia.nocookie.net/rocketleague/images/d/db/X-Devil_Mk2_body_icon.png/revision/latest?cb=20170523153541"
 }
-
+debug = False
 # functions
 send = client.send_message
 wait = client.wait_for_message

@@ -896,7 +896,6 @@ async def changeW(client, message):
 async def update(client, message):
     await client.send_message(message.channel, "Updating bot...")
     try:
-        os.system("git pull")
         os.system("python3.5 DiscordBot.py")
     except:
         await client.send_message(message.channel, "Something went wrong.")
