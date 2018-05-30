@@ -205,56 +205,6 @@ while True:
         global bugedition
         global jsonData
 
-        while bannedloop:
-            try:
-                bannedin = input("Would you like to ban any members from this code? Please provide their ID code. Type 'done' if you are finished.")
-
-                if bannedin.lower() == "done":
-                    bannedloop = False
-                    break
-                elif bannedin.lower() == "all":
-                    allbanned = True
-                    bannedloop = False
-                    break
-                elif bannedin.lower() == "debug":
-                    debug = True
-                    debugloop = True
-                    while debugloop:
-                        debugIN = input("Would you like to add any bot testors to help debug?? Please provide their ID code. Type 'done' if you are finished.")
-
-                        if debugIN.lower() == "done":
-                            debugloop = False
-                            break
-                        elif debugIN.lower() == "me":
-                            testors.append("177831674367836160")
-                        else:
-                            testors.append(debugIN)
-
-                    bannedloop = False
-                    break
-                else:
-                    banned.append(bannedin)
-            except KeyboardInterrupt:
-                exit()
-                break
-
-        startloop = True
-        while startloop:
-            try:
-                start = input("Would you like to start the program? (y/n)")
-                if start.lower() == "y":
-                    print("Starting...")
-                    startloop = False
-                    break
-                elif start.lower() == "n":
-                    print("Okay. Exiting...")
-                    exit()
-                else:
-                    print("Invalid command.")
-            except KeyboardInterrupt:
-                exit()
-                break
-
 
 
         @client.event
@@ -264,13 +214,6 @@ while True:
             print(client.user.id)#Bot User ID
             print("-------")
             await client.change_presence(game=discord.Game(name='Say `help'))
-            print("Information:\nBanned members: " + str(banned))
-            print("-------")
-            if debug == True:
-                print("Debuggers: " + str(testors))
-            else:
-                return
-            print("-------")
             await debug("Bot is now online.")
 
         @client.event
