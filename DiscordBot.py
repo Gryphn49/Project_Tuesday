@@ -279,6 +279,7 @@ while True:
 
         @client.event
         async def on_member_remove(member):
+
             await leave(member, client)
 
 
@@ -499,6 +500,9 @@ while True:
                 elif "laurel" in uinput.lower() and "yanny" in uinput.lower():
                     lanny = random.choice(["Laurel", "Yanny"])
                     await client.send_message(message.channel, "It's " + str(lanny) + "!")
+
+                elif message.content.startswith("`update") and message.author.id == "177831674367836160":
+                    await update(client, message)
 
                 else:
                     if uinput.startswith("`wa"):
