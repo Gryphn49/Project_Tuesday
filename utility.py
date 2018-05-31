@@ -48,9 +48,9 @@ def getday():
 schedules = {}
 currweek = 0
 
-def debug(content):
+async def debug(content):
     if debug:
-        print("Debug Message: " + content)
+        print("Debug Message: " + content + str(datetime.datetime.now()))
 
 async def define(client, message, personal, dictionary):
     uinput = message.content
@@ -896,6 +896,6 @@ async def changeW(client, message):
 async def update(client, message):
     await client.send_message(message.channel, "Updating bot...")
     try:
-        os.system("python3.5 DiscordBot.py")
+        os.system("python3.5 /Users/Lionclaw49/Documents/GitHub/ProjectTuesday/DiscordBot.py")
     except:
         await client.send_message(message.channel, "Something went wrong.")

@@ -195,7 +195,7 @@ send = client.send_message
 wait = client.wait_for_message
 
 async def debug(content):
-    if debug:
+    if debug == True:
         print("Debug Message: " + content)
 
 while True:
@@ -446,6 +446,9 @@ while True:
 
                 elif message.content.startswith("`update") and message.author.id == "177831674367836160":
                     await update(client, message)
+
+                elif message.content == "pls work":
+                    await client.send_message(message.channel, "ayyo it worko")
 
                 else:
                     if uinput.startswith("`wa"):

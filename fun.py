@@ -25,7 +25,7 @@ from bs4 import BeautifulSoup
 
 async def debug(content):
     if debug:
-        print("Debug Message: " + content)
+        print("Debug Message: " + content + str(datetime.datetime.now()))
 
 async def sinsult(client, message):
     uinput = message.content

@@ -28,7 +28,7 @@ from bs4 import BeautifulSoup
 
 async def debug(content):
     if debug:
-        print("Debug Message: " + content)
+        print("Debug Message: " + content + str(datetime.datetime.now()))
 
 async def prune(client, message):
     authorus = ""
@@ -252,24 +252,39 @@ async def join(member, client):
 
 async def leave(member, client):
     try:
+        await debug("Someone has left.")
         channel = discord.utils.find(lambda c: c.name == "join-log", member.server.channels)
+        await debug("Found joinlog.")
         await client.send_message(channel, "<@!" + str(member.id) + "> has left " + member.server.name + ".")
+        await debug("Sent leave message.")
         return
     except:
+        await debug("No joinlog.")
         channel = discord.utils.find(lambda ch: ch.name == "general", member.server.channels)
+        await debug("Looking for general")
         try:
+            await debug("Found general.")
             msg = await client.send_message(channel, "There is no join log for me to send a leave message. Add a thumbs up for me to create one.")
+            await debug("Sent message.")
             await client.add_reaction(msg, "👍")
             await client.add_reaction(msg, "👎")
-            responce = client.wait_for_reaction(["👍", "👎"],message=msg,timeout=30)
+            await debug("Added reactions.")
+            responce = client.wait_for_reaction(["👍", "👎"],message=msg,timeout=60)
             if responce.reaction.emoji == "👍":
+                await debug("Reaction: Positive.")
                 await client.create_channel(member.server, 'join-log', type=discord.ChannelType.text)
+                await debug("Created joinlog.")
                 channel = discord.utils.find(lambda c: c.name == "join-log", member.server.channels)
-                await client.send_message(channel, "Welcome <@!" + str(member.id) + "> to " + member.server.name + ".")
+                await debug("Found joinlog.")
+                await client.send_message(channel, "<@!" + str(member.id) + "> has left " + member.server.name + ".")
+                await debug("Sent leave message.")
                 return
             elif responce.reaction.emoji == "👎":
+                await debug("Reaction: Negative.")
                 return
             else:
+                await debug("Something went wrong.")
                 return
         except:
+            await debug("No general channel.")
             return

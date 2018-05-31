@@ -2,7 +2,7 @@ import discord
 
 async def debug(content):
     if debug:
-        print("Debug Message: " + content)
+        print("Debug Message: " + content + str(datetime.datetime.now()))
 
 def rempunc(s):
     return ''.join(c for c in s if c not in punctuation).lower()
