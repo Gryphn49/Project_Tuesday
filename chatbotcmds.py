@@ -1,8 +1,63 @@
-import discord
+import discord #adds discord
+# you don't need this line import asyncio, aiohttp #allows the async
+import wikipedia #adds wikipedia's api
+import wolframalpha #adds wolframalpha's api
+import random
+import os
+import yaml #operates with the insults file.
+from googletrans import Translator #google translate
+import random
+from string import punctuation
+from weather import Weather
+from urllib.request import urlopen
+from urllib.request import quote
+import re
+from PyLyrics import *
+from PyDictionary import PyDictionary
+from selenium import webdriver
+import smtplib
+import sys
+import datetime
+import profanity.profanity
+import json
+import urllib
+from bs4 import BeautifulSoup
+
+debug = False
+debug = False #debug function
+begin_db = ['hi', 'hey', 'hello', 'heyo', 'sup', 'whats up'] #beginning expressions (chat command)
+personal = ["439204820243447818"] #for my personal servers
+dictionary = PyDictionary() #define command
+client = discord.Client() #EVERYTHING
+weather = Weather() #weather command
+banned = [] #banning people
+bannedloop = True #banning loop
+allbanned = False #to ban everyone
+debugloop = False #debugging loop
+collectioned = False #collection loop
+testors = [] #debug testers loop
+canCollects = {"177831674367836160": "0"} #collect command
+authorcollection = {"Lionclaw49" : "No-thang"} #collect command
 
 async def debug(content):
     if debug:
         print("Debug Message: " + content + str(datetime.datetime.now()))
+
+async def error(alert):
+    msg = "Tuesday had an error: " + alert + " - " + datetime.datetime.now()
+
+    xname = "2sdayALERTS"
+    file = open(xname + ".txt", "r")
+    jsonData = file.read()
+    k = json.loads(jsonData)
+    file.close()
+
+    server = smtplib.SMTP('smtp.gmail.com' , 587)
+    server.ehlo()
+    server.starttls()
+    server.login(k[0], k[1])
+    server.sendmail(k[0], k[2], msg)
+
 
 def rempunc(s):
     return ''.join(c for c in s if c not in punctuation).lower()

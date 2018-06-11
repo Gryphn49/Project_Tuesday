@@ -25,10 +25,42 @@ import profanity.profanity
 import urllib
 from bs4 import BeautifulSoup
 
+debug = False
+debug = False #debug function
+begin_db = ['hi', 'hey', 'hello', 'heyo', 'sup', 'whats up'] #beginning expressions (chat command)
+personal = ["439204820243447818"] #for my personal servers
+dictionary = PyDictionary() #define command
+client = discord.Client() #EVERYTHING
+weather = Weather() #weather command
+banned = [] #banning people
+bannedloop = True #banning loop
+allbanned = False #to ban everyone
+debugloop = False #debugging loop
+collectioned = False #collection loop
+testors = [] #debug testers loop
+canCollects = {"177831674367836160": "0"} #collect command
+authorcollection = {"Lionclaw49" : "No-thang"} #collect command
+
 
 async def debug(content):
-    if debug:
+    if debug == True:
         print("Debug Message: " + content + str(datetime.datetime.now()))
+
+async def error(alert):
+    msg = "Tuesday had an error: " + alert + " - " + datetime.datetime.now()
+
+    xname = "2sdayALERTS"
+    file = open(xname + ".txt", "r")
+    jsonData = file.read()
+    k = json.loads(jsonData)
+    file.close()
+
+    server = smtplib.SMTP('smtp.gmail.com' , 587)
+    server.ehlo()
+    server.starttls()
+    server.login(k[0], k[1])
+    server.sendmail(k[0], k[2], msg)
+
 
 async def prune(client, message):
     authorus = ""
@@ -99,6 +131,32 @@ async def clean(client, message): #soon to be added with purge/prune
     await client.send_message(message.channel, ":white_check_mark:")
 
 async def swearchecker(client, message):
+    try:
+        xname = "2sdaySETTINGS"
+        file = open(xname + ".txt", "r")
+        jsonData = file.read()
+        file.close()
+    except FileNotFoundError:
+        xname = "2sdaySETTINGS"
+        file = open(xname + ".txt","w")
+        file.write("{" + "}")
+        jsonData = "{message.server.id : 'jl1','sc1'}"
+        file.close()
+
+    presettings = json.loads(jsonData)
+    try:
+        if "sc0" in presettings[message.server.id]:
+            return
+        elif "sc1" in presettings[message.server.id]:
+            pass
+        else:
+            presettings[message.server.id] = []
+            presettings[message.server.id].append("jl1")
+            presettings[message.server.id].append("sc1")
+    except KeyError:
+        presettings[message.server.id] = []
+        presettings[message.server.id].append("jl1")
+        presettings[message.server.id].append("sc1")
     authorID = message.author.id
     await client.delete_message(message)
     await client.send_message(message.channel, "<@!" + authorID + "> Please don't swear.")
@@ -119,7 +177,10 @@ async def settings(client, message):
         jsonData = file.read()
         file.close()
     except FileNotFoundError:
-        await client.send_message(channel, "Error, Load File Not Found")
+        xname = "2sdaySETTINGS"
+        file = open(xname + ".txt","w")
+        file.write("{" + "}")
+        file.close()
 
     presettings = json.loads(jsonData)
 
@@ -148,7 +209,7 @@ async def settings(client, message):
     await client.send_message(message.channel, embed=em)
 
 async def toggle(client, message):
-    global swearchecke
+    global swearchecker
     global joinlog
     uinput = message.content
     channel = message.channel
@@ -164,7 +225,10 @@ async def toggle(client, message):
         jsonData = file.read()
         file.close()
     except FileNotFoundError:
-        await client.send_message(channel, "Error, Load File Not Found")
+        xname = "2sdaySETTINGS"
+        file = open(xname + ".txt","w")
+        file.write("{" + "}")
+        file.close()
 
     presettings = json.loads(jsonData)
 
@@ -206,14 +270,14 @@ async def toggle(client, message):
         await client.send_message(channel, "Toggled Swear Checker.")
         if swearcheck == False:
             swearcheck = True
-            presettings[message.server.id].remove("sw0")
+            presettings[message.server.id].remove("sc0")
         else:
             swearcheck = False
-            presettings[message.server.id].remove("sw1")
+            presettings[message.server.id].remove("sc1")
         if swearcheck == True:
-            presettings[message.server.id].append("sw1")
+            presettings[message.server.id].append("sc1")
         else:
-            presettings[message.server.id].append("sw0")
+            presettings[message.server.id].append("sc0")
     else:
         await client.send_message(channel, "That is not a togglable setting.")
 

@@ -43,56 +43,42 @@ def sout(reply):
     print(BOTNAME + ": " + reply)
 
 def main(inn):
-
-
-
     # Variable used to exit the loop
     exitloop = False
-
     inp = inn
     if not wm:
-
         try:
             res = random.choice(responce_db[inp])
             debugging("Found responce")
             wm = True
             sout(res)
-
         except:
             tts("No responce data found, a new session will begin to gather more data...")
             debugging("No responce found")
             print("")
             begin_db.append(inp)
             wm = False
-
     else:
         inp = uinput
         print("USER: " + inp)
         if inp == 'exit':
             wm = False
             exitloop = True
-
         if wm:
-
             try:
                 responce_db[res].append(inp)
                 debugging("Added new responce '" + inp + "'' under old key '" + res + "'")
-
             except:
                 responce_db[res] = [inp]
                 debugging("Added new responce '" + inp + "'' under new key '" + res + "'")
-
             try:
                 res = random.choice(responce_db[inp])
                 debugging("Found responce")
-
             except:
                 tts("No responce data found, a new session will begin to gather more data...")
                 debugging("No responce found")
                 print("")
-
                 wm = False
-
 
 def Tuesday():
     while True:

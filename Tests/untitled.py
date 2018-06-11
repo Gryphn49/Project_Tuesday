@@ -58,7 +58,7 @@ def testen():
 
 pythonDictionary = {'name':'Bob', 'age':44, 'isEmployed':True}
 def save():
-    pythonDictionary = {}
+    pythonDictionary = []
     ToJson = json.dumps(pythonDictionary)
 
     print(ToJson)

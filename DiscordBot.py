@@ -32,6 +32,7 @@ from moderation import *
 from chatbotcmds import *
 from fun import *
 from utility import *
+from music import *
 
 # Variables for commands
 debug = False #debug function
@@ -198,6 +199,22 @@ async def debug(content):
     if debug == True:
         print("Debug Message: " + content)
 
+async def error(alert):
+    msg = "\nTuesday had an error: " + str(sys.exc_info()) + " - " + str(alert)
+    xname = "2sdayALERTS"
+    file = open(xname + ".txt", "r")
+    jsonData = file.read()
+    k = json.loads(jsonData)
+    file.close()
+
+    server = smtplib.SMTP('smtp.gmail.com' , 587)
+    server.ehlo()
+    server.starttls()
+    server.login(k[0], k[1])
+    server.sendmail(k[0], k[2], msg)
+    server.quit()
+
+
 while True:
     try:
         #here begins the start of the functions for the
@@ -215,6 +232,10 @@ while True:
             print("-------")
             await client.change_presence(game=discord.Game(name='Say `help'))
             await debug("Bot is now online.")
+
+        @client.event
+        async def on_error(event, *args, **kwargs):
+            await error(args[0])
 
         @client.event
         async def on_member_join(member):
@@ -247,6 +268,10 @@ while True:
 
                 if authorID not in testors and debug == True:
                     return
+
+                elif message.content.lower() == "`alertme":
+                    await client.send_message(message.channel, "IT WORKS")
+                    await error("alert")
 
                 elif uinput.startswith(".`") or uinput.startswith(".~") or uinput.startswith(".``"):
                     await client.send_message(message.channel, "Remember, when trying to use my commands, delete the '.'!")
@@ -448,7 +473,7 @@ while True:
                     await update(client, message)
 
                 elif message.content == "pls work":
-                    await client.send_message(message.channel, "ayyo it worko")
+                    await client.send_message("ayyo it worko")
 
                 else:
                     if uinput.startswith("`wa"):
@@ -458,6 +483,8 @@ while True:
                     elif uinput.startswith("``"):
                         #WIKIPEDIA
                         await wp(client, message, personal)
+
+
 
             except KeyboardInterrupt:
                 print("Exiting the program.\n")

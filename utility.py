@@ -22,6 +22,37 @@ import datetime
 import profanity.profanity
 import json
 
+debug = False
+debug = False #debug function
+begin_db = ['hi', 'hey', 'hello', 'heyo', 'sup', 'whats up'] #beginning expressions (chat command)
+personal = ["439204820243447818"] #for my personal servers
+dictionary = PyDictionary() #define command
+client = discord.Client() #EVERYTHING
+weather = Weather() #weather command
+banned = [] #banning people
+bannedloop = True #banning loop
+allbanned = False #to ban everyone
+debugloop = False #debugging loop
+collectioned = False #collection loop
+testors = [] #debug testers loop
+canCollects = {"177831674367836160": "0"} #collect command
+authorcollection = {"Lionclaw49" : "No-thang"} #collect command
+
+async def error(alert):
+    msg = "Tuesday had an error: " + alert + " - " + datetime.datetime.now()
+
+    xname = "2sdayALERTS"
+    file = open(xname + ".txt", "r")
+    jsonData = file.read()
+    k = json.loads(jsonData)
+    file.close()
+
+    server = smtplib.SMTP('smtp.gmail.com' , 587)
+    server.ehlo()
+    server.starttls()
+    server.login(k[0], k[1])
+    server.sendmail(k[0], k[2], msg)
+
 
 async def week():
 	global currweek
@@ -87,7 +118,7 @@ async def trending(client, message):
     authorID = message.author.id
     if uinput.lower() == "`trending":
         url1 = 'http://www.tweeplers.com/hashtags/?cc=WORLD'
-        browser = webdriver.Chrome() # setting the browswer type
+        browser = webdriver.Chrome("/Users/griffin/Downloads/chromedriver") # setting the browswer type
         browser.get('http://www.tweeplers.com/hashtags/?cc=WORLD') # accessing the webpage
 
         twitter1 = browser.find_element_by_id("item_u_1") # finding the id of the element1
@@ -113,7 +144,7 @@ async def trending(client, message):
             while len(forr) < int(uinput):
                 forr.append("*")
                 url1 = 'http://www.tweeplers.com/hashtags/?cc=WORLD'
-                browser = webdriver.Chrome() # setting the browswer type
+                browser = webdriver.Chrome("/Users/griffin/Downloads/chromedriver") # setting the browswer type
                 browser.get('http://www.tweeplers.com/hashtags/?cc=WORLD')
                 twitterr = browser.find_element_by_id("item_u_" + str(len(forr)))
                  # accessing the webpage
@@ -693,46 +724,6 @@ async def synonym(client, message):
         return
     await client.send_message(channel, synonym)
 
-
-async def music(client, message):
-    three = 0
-    print("recieved")
-    author = message.author
-    voice_channel = author.voice_channel
-    join = await client.join_voice_channel(voice_channel)
-    song = message.content.replace("`play ","")
-    print(song)
-    if song.startswith("https://"):
-        player = await join.create_ytdl_player(song)
-        player.start()
-        print("Playing " + player.title + " for " + str(player.duration))
-    else:
-        query = quote(song)
-        debug(query)
-        url = "https://www.youtube.com/results?search_query=" + query
-        debug(url)
-        response = urlopen(url)
-        debug("1")
-        html = response.read()
-        debug(str(html))
-        soup = BeautifulSoup(html)
-        debug("2")
-        for vid in soup.findAll(attrs={'class':'yt-uix-tile-link'}):
-            debug("3")
-            debug(str(three))
-            if three == 3:
-                break
-                debug("broken")
-            else:
-                song = 'https://www.youtube.com' + vid['href']
-                print(song)
-                debug("found")
-                three = 3
-                debug(str(three))
-        player = await join.create_ytdl_player(song)
-        player.start()
-        print("Playing " + player.title + " for " + str(player.duration))
-
 async def rschedule(client, message):
     schedules[message.author.name + "#" + message.author.discriminator] = {}
     await client.send_message(message.channel, "Hello! What is your A block")
@@ -896,6 +887,21 @@ async def changeW(client, message):
 async def update(client, message):
     await client.send_message(message.channel, "Updating bot...")
     try:
+        os.system("git pull")
+
         os.system("python3.5 /Users/Lionclaw49/Documents/GitHub/ProjectTuesday/DiscordBot.py")
     except:
-        await client.send_message(message.channel, "Something went wrong.")
+        os.system("python3.5 /Users/Lionclaw49/Documents/GitHub/ProjectTuesday/DiscordBot.py")
+
+async def crash(client, message):
+	await client.send_message(message.channel, "Are you sure you want to crash the bot?")
+	crashing = await client.wait_for_message(timeout=30, channel=message.channel, author=message.author)
+	if crashing is None:
+		return
+	elif crashing.content.lower() == "yes" or crashing.content.lower() == "y":
+		await client.send_message(message.channel, "Crashing the bot.")
+		exit()
+		exit()
+		exit()
+	else:
+		return
