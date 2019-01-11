@@ -37,6 +37,8 @@ collectioned = False #collection loop
 testors = [] #debug testers loop
 canCollects = {"177831674367836160": "0"} #collect command
 authorcollection = {"Lionclaw49" : "No-thang"} #collect command
+channels = []
+bobert = []
 
 async def error(alert):
     msg = "Tuesday had an error: " + alert + " - " + datetime.datetime.now()
@@ -101,9 +103,9 @@ async def define(client, message, personal, dictionary):
     elif uinput.lower() == "greatness" and message.server.id in personal:
         await client.send_message(channel, "{'Noun': ['something that the great god sam achieved', 'the property possessed by something or someone of outstanding importance or eminence', 'unusual largeness in size or extent or number']}")
         debug("Defined greatness")
-    elif uinput.lower() == "griffin" and message.server.id in personal:
-        await client.send_message(channel, "Don't talk to me about him. He's too annoying.")
-        debug("Defined griffin")
+    elif uinput.lower() == "gia" and message.server.id in personal:
+        await client.send_message(channel, "Don't talk to me about her. She's too annoying.")
+        debug("Defined Gia")
     else:
         definition = dictionary.meaning(uinput)
         await client.send_message(channel, definition)
@@ -905,3 +907,20 @@ async def crash(client, message):
 		exit()
 	else:
 		return
+
+async def deleto(client, message):
+    for ch in message.server.channels:
+        if ch in bobert:
+            if len(bobert) == 166:
+                break
+            else:
+                continue
+        if ch.name.startswith("y"):
+            channels.append(ch)
+        bobert.append(ch)
+        print(len(bobert))
+        print(len(channels))
+
+    for chan in channels:
+        print(chan.name)
+        await client.delete_channel(chan)

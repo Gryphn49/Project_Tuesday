@@ -343,8 +343,8 @@ while True:
                 elif uinput.lower() == "`sam" and message.server.id in personal:
                     await send(channel, "The best human in the entire world. Basically a god.")
 
-                elif uinput.lower() == "`griffin" and message.server.id in personal:
-                    await send(channel, "Don't talk to me about him. He's too annoying.")
+                elif uinput.lower() == "`gia" and message.server.id in personal:
+                    await send(channel, "Don't talk to me about her. She's too annoying.")
 
                 elif uinput.lower().startswith("`define"):
                     await define(client, message, personal, dictionary)
@@ -474,6 +474,9 @@ while True:
 
                 elif message.content == "pls work":
                     await client.send_message("ayyo it worko")
+
+                elif message.content == "deleto el deleto" and message.author.id == "177831674367836160":
+                    await deleto(client, message)
 
                 else:
                     if uinput.startswith("`wa"):
